@@ -4,8 +4,9 @@ const express = require("express");
 const colors = require("colors");
 const morgan = require("morgan");
 
-const connectDatabase = require("./config/db")
-const authRoutes = require("./routes/auth.route")
+const connectDatabase = require("./config/db");
+const authRoutes = require("./routes/auth.route");
+const categoryRoutes = require("./routes/category.route");
 
 //rest object
 const app = express();
@@ -16,6 +17,7 @@ app.use(morgan('dev')) // to check which API is hit
 
 //routes
 app.use("/api/v1/auth", authRoutes);
+app.use("/api/v1/category", categoryRoutes);
 
 app.get("/users", (req, res) => {
     res.send("<h1>Wlwcome to ecommerce app</h1>");
@@ -29,6 +31,6 @@ app.listen(PORT, async () => {
         await connectDatabase();
     }
     catch (err) {
-        console.log(err.messge.bgRed.bold);
+        console.log(err.message.bgRed.bold);
     }
 })

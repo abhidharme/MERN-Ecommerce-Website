@@ -3,6 +3,7 @@ const userModel = require("../models/user.model")
 const { hashPassword, comparePassword } = require("../helpers/auth.heplers")
 const colors = require("colors");
 const jwt = require("jsonwebtoken");
+
 require("dotenv").config();
 
 const newToken = (id) => {
@@ -13,7 +14,7 @@ const newToken = (id) => {
 
 const registerController = async (req, res) => {
     try {
-        const { name, email, password, phone, address } = req.body;
+        const { name, email, password, phone, address, question, role } = req.body;
 
         //check user exist or not
         const existingUser = await userModel.findOne({ email });
@@ -27,7 +28,7 @@ const registerController = async (req, res) => {
         // register User
         const hashedPassword = await hashPassword(password);
         //save
-        const user = await new userModel({ name, email, phone, address, password: hashedPassword }).save();
+        const user = await new userModel({ name, email, phone, address, question, password: hashedPassword, role }).save();
         console.log(`${user}`.bgWhite)
         return res.status(201).send({
             success: true,
@@ -64,7 +65,7 @@ const loginController = async (req, res) => {
         if (!match) {
             return res.status(404).send({
                 success: false,
-                message: "Imvalid Password"
+                message: "Invalid Password"
             })
         }
 
@@ -75,7 +76,7 @@ const loginController = async (req, res) => {
             message: "Login Successfully",
             user: {
                 name: user.name,
-                email: user.name,
+                email: user.email,
                 phone: user.phone,
                 address: user.address
             },
@@ -94,8 +95,35 @@ const loginController = async (req, res) => {
 }
 
 
+const forgotPasswordController = async (req, res) => {
+    try {
+        const { email, question, newPassword } = req.body;
+        const user = await userModel.findOne({ email, question });
+
+        if (!user) {
+            return res.status(500).send({
+                success: false,
+                message: 'Wrong Email or Password',
+            })
+        }
+        const hash = await hashPassword(newPassword);
+        await userModel.findByIdAndUpdate(user._id, { password: hash });
+        return res.status(200).send({
+            success: true,
+            message: "Password reset successfully"
+        });
+    }
+    catch (error) {
+        return res.status(500).send({
+            success: false,
+            message: 'Something went wrong',
+            error
+        })
+    }
+}
+
 const testController = (req, res) => {
     return res.send("form test")
 }
 
-module.exports = { registerController, loginController, testController }
+module.exports = { registerController, loginController, testController, forgotPasswordController }
