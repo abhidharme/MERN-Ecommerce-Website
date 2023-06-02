@@ -12,13 +12,14 @@ const createProductController = async (req, res) => {
             products.photo.data = fs.readFileSync(photo.path);
             products.photo.contentType = photo.type;
         }
-        await products.save()
+        await products.save();
         return res.status(201).send({
             success: true,
             message: "product created Successfully",
             products
-        })
-    } catch (error) {
+        });
+    }
+    catch (error) {
         console.log(error.message.bgRed.bold);
         return res.status(500).send({
             success: false,
@@ -36,13 +37,14 @@ const updateProductController = async (req, res) => {
             products.photo.data = fs.readFileSync(photo.path);
             products.photo.contentType = photo.type;
         }
-        await products.save()
+        await products.save();
         return res.status(201).send({
             success: true,
             message: "Product Updated Successfully",
             products
-        })
-    } catch (error) {
+        });
+    }
+    catch (error) {
         console.log(error.message.bgRed.bold);
         return res.status(500).send({
             success: false,
@@ -61,8 +63,9 @@ const getAllProductController = async (req, res) => {
             message: "All Products",
             products,
             total: products.length
-        })
-    } catch (error) {
+        });
+    }
+    catch (error) {
         console.log(error.message.bgRed.bold);
         return res.status(500).send({
             success: false,
@@ -96,9 +99,10 @@ const productPhotoController = async (req, res) => {
         const products = await productsModel.findById(req.params.id).select("photo");
         if (products.photo.data) {
             res.set("Content-type", products.photo.contentType);
-            return res.status(200).send(products.photo.data)
+            return res.status(200).send(products.photo.data);
         }
-    } catch (error) {
+    }
+    catch (error) {
         console.log(error.message.bgRed.bold);
         return res.status(500).send({
             success: false,
@@ -115,8 +119,9 @@ const deleteProductController = async (req, res) => {
             success: true,
             message: "Products delete successfully",
             products
-        })
-    } catch (error) {
+        });
+    }
+    catch (error) {
         console.log(error.message.bgRed.bold);
         return res.status(500).send({
             success: false,
@@ -133,4 +138,4 @@ module.exports = {
     getAllProductController,
     singleProductController,
     productPhotoController
-}
+};

@@ -12,7 +12,7 @@ const verifyToken = (token) => {
             }
         })
     })
-}
+};
 
 const authenticate = async (req, res, next) => {
 
@@ -27,15 +27,15 @@ const authenticate = async (req, res, next) => {
     const token = req.headers.authorization.split(" ")[1];
     let user;
     try {
-        user = await verifyToken(token)
+        user = await verifyToken(token);
     } catch (error) {
         return res.status(404)
-            .send({ message: "authorization token is not provide or is not valid" })
+            .send({ message: "authorization token is not provide or is not valid" });
     }
 
     req.user = user;
 
-    return next()
+    return next();
 }
 
 const isAdmin = async (req, res, next) => {
@@ -45,14 +45,14 @@ const isAdmin = async (req, res, next) => {
             return res.status(401).send({
                 success: false,
                 message: 'UnAuthorized Access'
-            })
+            });
         }
         else {
             return next();
         }
     }
     catch (error) {
-        console.log(error)
+        console.log(error);
     }
 }
 

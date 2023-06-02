@@ -13,8 +13,8 @@ const productRoutes = require("./routes/products.route");
 const app = express();
 
 //middlewares       
-app.use(express.json())
-app.use(morgan('dev')) // to check which API is hit
+app.use(express.json());
+app.use(morgan('dev')); // to check which API is hit
 
 //routes
 app.use("/api/v1/auth", authRoutes);
@@ -35,4 +35,4 @@ app.listen(PORT, async () => {
     catch (err) {
         console.log(err.message.bgRed.bold);
     }
-})
+});

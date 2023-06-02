@@ -27,7 +27,7 @@ const createCategoryController = async (req, res) => {
             success: false,
             message: 'Error in Category',
             error
-        })
+        });
     }
 };
 
@@ -49,7 +49,7 @@ const updateCategoryController = async (req, res) => {
             success: false,
             message: 'Error while updating Category',
             error
-        })
+        });
     }
 }
 
@@ -68,7 +68,7 @@ const getCategoryController = async (req, res) => {
             success: false,
             message: 'Error while getting Category',
             error
-        })
+        });
     }
 }
 
@@ -87,7 +87,7 @@ const singleCategoryController = async (req, res) => {
             success: false,
             message: 'Error while getting single Category',
             error
-        })
+        });
     }
 }
 
@@ -106,7 +106,7 @@ const deleteCategoryController = async (req, res) => {
             success: false,
             message: 'Error while getting single Category',
             error
-        })
+        });
     }
 }
 
