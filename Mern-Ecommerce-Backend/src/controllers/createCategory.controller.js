@@ -51,7 +51,7 @@ const updateCategoryController = async (req, res) => {
             error
         });
     }
-}
+};
 
 const getCategoryController = async (req, res) => {
     try {
@@ -70,7 +70,7 @@ const getCategoryController = async (req, res) => {
             error
         });
     }
-}
+};
 
 const singleCategoryController = async (req, res) => {
     try {
@@ -89,7 +89,7 @@ const singleCategoryController = async (req, res) => {
             error
         });
     }
-}
+};
 
 const deleteCategoryController = async (req, res) => {
     try {
@@ -108,6 +108,6 @@ const deleteCategoryController = async (req, res) => {
             error
         });
     }
-}
+};
 
-module.exports = { createCategoryController, updateCategoryController, getCategoryController, singleCategoryController, deleteCategoryController }
+module.exports = { createCategoryController, updateCategoryController, getCategoryController, singleCategoryController, deleteCategoryController };
